@@ -89,7 +89,7 @@ class Blockchain:
                 chain = response.json()["chain"]
 
                 # Check if the length is longer and the chain is valid
-                if length > max_length and self.valid_proof(chain):
+                if length > max_length and self.valid_chain(chain):
                     max_length = length
                     new_chain = chain
 
@@ -185,6 +185,7 @@ def full_chain():
     return jsonify(response), 200
 
 
+
 @app.route("/nodes/register", methods = ["POST"])
 def register_nodes():
     values = request.get_json()
@@ -229,5 +230,5 @@ def consensus():
 
 
 if __name__ == "__main__":
-    app.run(host = "0.0.0.0", port = 3938)
+    app.run(host = "0.0.0.0", port = 5555)
 
