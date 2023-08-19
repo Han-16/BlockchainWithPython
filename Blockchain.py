@@ -52,6 +52,7 @@ class Blockchain:
 
         return proof
 
+
     def valid_chain(self, chain:list) -> bool:
         last_block = chain[0]
         current_index = 1
@@ -100,7 +101,6 @@ class Blockchain:
 
         return False
 
-
     @staticmethod
     def valid_proof(last_proof:int, proof:int) -> bool:
         guess = f"{last_proof}{proof}".encode()
@@ -119,6 +119,7 @@ class Blockchain:
         return self.chain[-1]
 
 
+
 # Instantiate our Node
 app = Flask(__name__)
 
@@ -128,6 +129,16 @@ node_identifier = str(uuid4()).replace("-", "")
 # Instantiate the Blockchain
 blockchain = Blockchain()
 
+
+@app.before_request
+def http_before():
+    print ("HTTP before_request")
+
+@app.after_request
+def http_after(response):
+    print ("HTTP after_request")
+    print(f"response: {response}")
+    return response
 
 @app.route('/mine', methods = ['GET'])
 def mine():
